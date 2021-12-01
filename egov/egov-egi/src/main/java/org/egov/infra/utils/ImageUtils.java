@@ -53,11 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
+import javax.imageio.*;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 import java.io.File;
@@ -69,9 +65,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Optional;
 
-import static javax.imageio.ImageIO.createImageOutputStream;
-import static javax.imageio.ImageIO.getImageWritersByFormatName;
-import static javax.imageio.ImageIO.read;
+import static javax.imageio.ImageIO.*;
 import static javax.imageio.ImageWriteParam.MODE_EXPLICIT;
 import static org.apache.commons.io.FilenameUtils.getExtension;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -120,7 +114,7 @@ public final class ImageUtils {
     public static double[] findGeoCoordinates(File jpegImage) {
         Optional<double[]> coordinates = Optional.empty();
         if (JPG_FORMAT_NAME.equalsIgnoreCase(imageFormat(jpegImage))) {
-            Image image = new Image(jpegImage);
+            javaxt.io.Image image = new Image(jpegImage);
             coordinates = Optional.ofNullable(image.getGPSCoordinate());
         }
         return coordinates.orElse(new double[]{0D, 0D});
